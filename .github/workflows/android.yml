@@ -46,6 +46,6 @@ jobs:
             sdk install platforms/android-37.2 build-tools/37.0.0 platform-tools
       - name: Build and verify
         run: >-
-          bash ./gradlew :app:assembleDebug :app:assembleRelease
+          env -u ANDROID_SDK_ROOT bash ./gradlew :app:assembleDebug :app:assembleRelease
           :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest
           --console=plain --no-daemon
