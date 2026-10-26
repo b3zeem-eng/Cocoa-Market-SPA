@@ -8,7 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cocoa_market_spa.viewmodel.PedidoViewModel
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.example.cocoa_market_spa.viewmodel.CarritoViewModel
@@ -34,7 +34,7 @@ fun CarritoNavigation() {
     )
     val carritoViewModel: CarritoViewModel = viewModel()
 
-    var totalPedido by remember { mutableStateOf(0) }
+    var totalPedido by remember { mutableIntStateOf(0) }
 
         NavHost(
             navController = navController,

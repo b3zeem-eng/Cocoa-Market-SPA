@@ -15,7 +15,7 @@ import androidx.compose.ui.platform.LocalContext
 import com.example.cocoa_market_spa.catalogo.viewmodel.CatalogoViewModel
 import com.example.cocoa_market_spa.data.local.AppDatabase
 import androidx.compose.material3.Text
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.cocoa_market_spa.viewmodel.CarritoViewModel
 import com.example.cocoa_market_spa.model.CarritoModel
@@ -28,8 +28,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import android.media.AudioManager
-import android.media.ToneGenerator
 import android.media.RingtoneManager
 
 
@@ -50,7 +48,7 @@ fun CatalogoNavigation(nombreUsuario: String) {
             }
         }
     )
-    var totalPedido by remember { mutableStateOf(0) }
+    var totalPedido by remember { mutableIntStateOf(0) }
 
 
 
@@ -88,7 +86,7 @@ fun CatalogoNavigation(nombreUsuario: String) {
                             navController.navigate("pedidos")
                         },
                         onCuenta = {
-                            navController.navigate("Cuenta")
+                            navController.navigate("cuenta")
                         }
                     )
                 }

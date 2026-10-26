@@ -3,6 +3,7 @@ package com.example.cocoa_market_spa.catalogo
 
 import android.content.Intent
 import android.net.Uri
+import androidx.core.net.toUri
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -70,7 +71,7 @@ fun CatalogoScreen(
 
                     val intent = Intent(
                         Intent.ACTION_VIEW,
-                        Uri.parse(enlace)
+                        enlace.toUri()
                     )
 
                     context.startActivity(intent)

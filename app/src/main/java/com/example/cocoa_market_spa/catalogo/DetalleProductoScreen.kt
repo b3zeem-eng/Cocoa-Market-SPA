@@ -23,7 +23,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.ui.Alignment
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import android.util.Log
@@ -40,7 +40,7 @@ fun DetalleProductoScreen(
     onAgregarCarrito: (Int) -> Unit
 
 )   { var cantidad by remember{
-    mutableStateOf(1)
+    mutableIntStateOf(1)
     }
 
     val context = LocalContext.current

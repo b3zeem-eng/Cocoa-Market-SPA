@@ -89,7 +89,8 @@ Nota técnica: el esquema actual declara la versión 3. La migración 1 → 2 in
 Requisitos para ejecutar el proyecto
 - Android Studio con el SDK de Android instalado.
 - Un dispositivo Android o emulador compatible (minSdk 24).
-- JDK compatible con la configuración de Gradle del repositorio.
+- JDK 21 para Gradle y las pruebas Robolectric de Android 17.
+- Android SDK Platform 37.2 y Build Tools 37.0.0.
 - Conexión a Internet para descargar dependencias durante la configuración inicial.
 Instalación
 1. Clonar el repositorio y entrar a la carpeta:
@@ -136,3 +137,28 @@ Repositorio
 GitHub: https://github.com/asvasltx/Cocoa-Market-SPA
 
 Rama integrada documentada: develop
+
+
+Verificación automática
+La configuración actual usa Gradle 9.8.2, Android Gradle Plugin 9.4.1,
+Kotlin 2.4.21 y las versiones estables de las dependencias declaradas en
+gradle/libs.versions.toml. compileSdk es 37.2, targetSdk es 37 y minSdk sigue en 24.
+
+Con JAVA_HOME y ANDROID_HOME configurados, ejecutar desde la raíz:
+
+```sh
+sh ./gradlew :app:assembleDebug :app:assembleRelease :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest
+```
+
+Las pruebas locales incluyen el acceso a Mi cuenta desde Inicio, Carrito y
+Pedidos, comprobando el nombre del usuario en Android 15 y Android 17 con
+Robolectric. No requieren un dispositivo o emulador. El test de instrumentación
+existente se compila con assembleDebugAndroidTest; su ejecución en un dispositivo
+se realiza por separado con connectedDebugAndroidTest.
+
+La generación de código de Room usa una configuración regional fija para las
+JVM de Gradle y Kotlin, evitando literales numéricos árabes en el código generado.
+Esto no cambia el idioma ni la configuración regional de la aplicación.
+
+.github/workflows/android.yml define estas comprobaciones para cada push y pull
+request, usando JDK 21 y dos configuraciones regionales del host: árabe e inglés.

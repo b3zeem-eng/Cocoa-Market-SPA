@@ -1,0 +1,37 @@
+name: Android
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: ar
+            country: SA
+          - language: en
+            country: US
+    env:
+      JAVA_TOOL_OPTIONS: -Duser.language=${{ matrix.language }} -Duser.country=${{ matrix.country }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6.1.0
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-37.2' 'build-tools;37.0.0'
+      - name: Build and verify
+        run: >-
+          bash ./gradlew :app:assembleDebug :app:assembleRelease
+          :app:testDebugUnitTest :app:lintDebug :app:assembleDebugAndroidTest
+          --console=plain --no-daemon
